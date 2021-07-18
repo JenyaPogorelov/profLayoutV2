@@ -1,15 +1,16 @@
 export default {
-    _url: '/api/v1/',
+    _url: '../api/v1/',
 
     getCatalog(errorCallback) {
         return  fetch(`${this._url}catalogData.json`)
             .then((response) => {
                 if(response.ok) {
-                    return response.data;
+                    return response.json();
                 } else {
                     return errorCallback(response.status);
                 }
             })
+            .then((data) => data)
             .catch((error) => {
                 return errorCallback(error);
             })
@@ -19,11 +20,12 @@ export default {
         return  fetch(`${this._url}getCart.json`)
             .then((response) => {
                 if(response.ok) {
-                    return response.data;
+                    return response.json();
                 } else {
                     return errorCallback(response.status);
                 }
             })
+            .then((data) => data)
             .catch((error) => {
                 return errorCallback(error);
             })
