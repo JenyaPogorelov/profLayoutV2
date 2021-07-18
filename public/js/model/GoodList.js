@@ -7,11 +7,22 @@ export default class GoodList {
     }
 
     load(callback, goodClass) {
-        this._goodList = callback().map(data => new goodClass(data));
+        callback().then(data => {
+            this._goodList = data.map(item => new goodClass(item))
+            this._eventEmiter.emit('loaded')
+        })
     }
 
     add(good) {
         this._goodList.push(good);
+    }
+
+    get(id) {
+        return  this._goodList.find(good => good.id === id);
+    }
+
+    getAll() {
+        return this._goodList;
     }
 
     remove(id) {

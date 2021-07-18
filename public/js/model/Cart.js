@@ -8,7 +8,11 @@ export default class Cart extends GoodList {
     }
 
     load() {
-        super.load(dataHandler.getCart(), PurchasedGood);
+        super.load(dataHandler.getCart.bind(dataHandler), PurchasedGood);
+    }
+
+    getCount() {
+        return this._goodList.reduce((acc, good) => acc + good.quantity, 0);
     }
 
     add(good) {
@@ -18,6 +22,7 @@ export default class Cart extends GoodList {
         } else {
             super.add(good);
         }
+        this._eventEmiter.emit('added', good.id);
     }
 
     decrease(id) {
@@ -29,5 +34,6 @@ export default class Cart extends GoodList {
                 super.remove(id);
             }
         }
+        this._eventEmiter.emit('removed', id);
     }
 }

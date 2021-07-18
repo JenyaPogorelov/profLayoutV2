@@ -8,6 +8,6 @@ export default class Showcase extends GoodList {
     }
 
     load() {
-        super.load(dataHandler.getCatalog(), Good);
+        super.load(dataHandler.getCatalog.bind(dataHandler), Good);
     }
 }
